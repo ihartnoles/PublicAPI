@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+</head>
+<body>
+	<h1>Hiyawatha!</h1>
+	 <ul id="1" class="product">
+	  </ul>
+	  <ul id="2" class="product">
+	  </ul>
+</body>
+
+<script type="text/javascript">
+function fetchProductData(id){
+  $.ajax({
+      url: "http://localhost:3000/products/" + id + ".js",
+      dataType: "jsonp",
+      type: "GET",
+      processData: false,
+      contentType: "application/json",
+      success: function(data) {
+       	
+        $('#' + id).
+          append('<li>Remote id: ' + id + '</li>').
+          append('<li>Reference: ' + data['product']['reference'] + '</li>').
+          append('<li>Quantity: ' + data['product']['quantity'] + '</li>');
+      }
+    });
+};
+
+function fetchData(){
+  $(".product").each(function(i){
+    fetchProductData($(this).attr("id"));
+  });
+};
+
+
+$(document).ready(function(){
+  fetchData();
+});
+
+</script>
+
+ 
